@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: spring-cloud-kubernetes-configuration-watcher
+  cloud:
+    kubernetes:
+      reload:
+        enabled: true
+        monitoring-secrets: true
+        strategy: shutdown
+    bus:
+      enabled: false
+management:
+  health:
+    rabbit:
+      enabled: false
+    probes:
+      enabled: true
+server:
+  port: 8888
+---
+spring:
+  profiles: bus-amqp
+  cloud:
+    bus:
+      enabled: true
+    stream:
+      default-binder: rabbit
+management:
+  health:
+    rabbit:
+      enabled: true
+---
+spring:
+  profiles: bus-kafka
+  cloud:
+    bus:
+      enabled: true
+    stream:
+      default-binder: kafka

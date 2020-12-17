@@ -28,7 +28,6 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-kubernetes</artifactId>
 	<version>2.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -65,16 +64,18 @@
 		<!-- Dependency Versions -->
 		<spring-cloud-commons.version>3.0.0-SNAPSHOT</spring-cloud-commons.version>
 		<spring-cloud-config.version>3.0.0-SNAPSHOT</spring-cloud-config.version>
+		<spring-cloud-bus.version>3.0.0-SNAPSHOT</spring-cloud-bus.version>
+		<spring-cloud-contract.version>3.0.0-SNAPSHOT</spring-cloud-contract.version>
 
 		<!-- Maven Plugin Versions -->
 		<maven-compiler-plugin.version>3.5</maven-compiler-plugin.version>
 		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
-		<maven-failsafe-plugin.version>2.18.1</maven-failsafe-plugin.version>
-		<maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+		<maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 		<fabric8.maven.plugin.version>4.4.0</fabric8.maven.plugin.version>
 		<groovy.version>2.4.12</groovy.version>
 		<restassured.version>3.0.2</restassured.version>
-		<spock-spring.version>1.1-groovy-2.4</spock-spring.version>
+		<spock-spring.version>1.3-groovy-2.5</spock-spring.version>
 
 		<maven-checkstyle-plugin.failsOnError>true</maven-checkstyle-plugin.failsOnError>
 		<maven-checkstyle-plugin.failsOnViolation>true
@@ -85,17 +86,28 @@
 
 	<modules>
 		<module>spring-cloud-kubernetes-dependencies</module>
-		<module>spring-cloud-kubernetes-core</module>
-		<module>spring-cloud-kubernetes-config</module>
-		<module>spring-cloud-kubernetes-discovery</module>
-		<module>spring-cloud-starter-kubernetes</module>
-		<module>spring-cloud-starter-kubernetes-config</module>
-		<module>spring-cloud-starter-kubernetes-all</module>
+		<module>spring-cloud-kubernetes-commons</module>
+		<module>spring-cloud-kubernetes-test-support</module>
+		<module>spring-cloud-kubernetes-client-autoconfig</module>
+		<module>spring-cloud-kubernetes-client-config</module>
+		<module>spring-cloud-kubernetes-fabric8-autoconfig</module>
+		<module>spring-cloud-kubernetes-fabric8-config</module>
+		<module>spring-cloud-kubernetes-fabric8-discovery</module>
+		<module>spring-cloud-kubernetes-client-discovery</module>
+		<module>spring-cloud-starter-kubernetes-fabric8</module>
+		<module>spring-cloud-starter-kubernetes-fabric8-config</module>
+		<module>spring-cloud-starter-kubernetes-fabric8-all</module>
+		<module>spring-cloud-starter-kubernetes-client</module>
+		<module>spring-cloud-starter-kubernetes-client-config</module>
+		<module>spring-cloud-starter-kubernetes-client-all</module>
 		<module>spring-cloud-kubernetes-examples</module>
-		<module>spring-cloud-kubernetes-leader</module>
-		<module>spring-cloud-kubernetes-istio</module>
+		<module>spring-cloud-kubernetes-fabric8-leader</module>
+		<module>spring-cloud-kubernetes-fabric8-istio</module>
+		<module>spring-cloud-kubernetes-controllers</module>
 		<module>spring-cloud-kubernetes-integration-tests</module>
 		<module>docs</module>
+		<module>spring-cloud-kubernetes-fabric8-loadbalancer</module>
+		<module>spring-cloud-starter-kubernetes-fabric8-loadbalancer</module>
 	</modules>
 
 	<dependencyManagement>
@@ -121,6 +133,22 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-config-dependencies</artifactId>
 				<version>${spring-cloud-config.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-bus-dependencies</artifactId>
+				<version>${spring-cloud-bus.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-dependencies</artifactId>
+				<version>${spring-cloud-contract.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -203,7 +231,7 @@
 				<repository>
 					<id>spring-snapshots</id>
 					<name>Spring Snapshots</name>
-					<url>https://repo.spring.io/libs-snapshot-local</url>
+					<url>https://repo.spring.io/snapshot</url>
 					<snapshots>
 						<enabled>true</enabled>
 					</snapshots>
@@ -214,7 +242,7 @@
 				<repository>
 					<id>spring-milestones</id>
 					<name>Spring Milestones</name>
-					<url>https://repo.spring.io/libs-milestone-local</url>
+					<url>https://repo.spring.io/milestone</url>
 					<snapshots>
 						<enabled>false</enabled>
 					</snapshots>
@@ -232,7 +260,7 @@
 				<pluginRepository>
 					<id>spring-snapshots</id>
 					<name>Spring Snapshots</name>
-					<url>https://repo.spring.io/libs-snapshot-local</url>
+					<url>https://repo.spring.io/snapshot</url>
 					<snapshots>
 						<enabled>true</enabled>
 					</snapshots>
@@ -243,7 +271,7 @@
 				<pluginRepository>
 					<id>spring-milestones</id>
 					<name>Spring Milestones</name>
-					<url>https://repo.spring.io/libs-milestone-local</url>
+					<url>https://repo.spring.io/milestone</url>
 					<snapshots>
 						<enabled>false</enabled>
 					</snapshots>
@@ -251,7 +279,7 @@
 				<pluginRepository>
 					<id>spring-releases</id>
 					<name>Spring Releases</name>
-					<url>https://repo.spring.io/libs-release-local</url>
+					<url>https://repo.spring.io/release</url>
 					<snapshots>
 						<enabled>false</enabled>
 					</snapshots>

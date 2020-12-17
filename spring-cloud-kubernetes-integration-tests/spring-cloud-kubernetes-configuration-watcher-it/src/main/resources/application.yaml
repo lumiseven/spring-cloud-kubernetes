@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: spring-cloud-kubernetes-configuration-watcher-it
+  cloud:
+    bus:
+      refresh:
+        enabled: false #disable this because we are going to provide our own refresh listener for testing purposes
+      enabled: false
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
+management:
+  health:
+    probes:
+      enabled: true
+---
+spring:
+  profiles: bus-amqp
+  cloud:
+    bus:
+      enabled: true
+    stream:
+      default-binder: rabbit
+---
+spring:
+  profiles: bus-kafka
+  cloud:
+    bus:
+      enabled: true
+    stream:
+      default-binder: kafka

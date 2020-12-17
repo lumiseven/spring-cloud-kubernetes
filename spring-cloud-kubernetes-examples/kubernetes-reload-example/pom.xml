@@ -45,7 +45,7 @@
 	</dependencyManagement>
 
 	<properties>
-		<hibernate-validator.version>5.3.5.Final</hibernate-validator.version>
+		<hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
 	</properties>
 
 	<dependencies>
@@ -67,7 +67,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-kubernetes-config</artifactId>
+			<artifactId>spring-cloud-starter-kubernetes-fabric8-config</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
